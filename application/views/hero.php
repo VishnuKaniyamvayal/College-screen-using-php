@@ -155,6 +155,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<p class="text-gray-400">COURSES AVAILABLE: <span class='text-gray-700'>
 									<?php echo $college['courses_offered'];?>
 								</span></p>
+							<p class="text-gray-400">Approx fees: <span class='text-gray-900 font-bold text-sky-500'>
+									<?php echo "Rs.".$college['approx_fees'];?>
+							</span></p>
 						</div>
 
 						<div class="flex col-start-2 ml-4 md:col-start-auto md:ml-0 md:justify-end">

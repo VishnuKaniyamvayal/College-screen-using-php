@@ -27,6 +27,14 @@ class HomeController extends CI_Controller {
 		{
 			$filtered_array = $this->FilterModel->search($filtered_array, $search_key);
 		}
+		// sorting the array
+		$sort_type = ($this->session->userdata('sort_type'));
+		$sort = ($this->session->userdata('sort'));
+		if ($sort != '')
+		{
+			$filtered_array = $this->FilterModel->sort($filtered_array, $sort , $sort_type);
+		}
+		// print_r($sort_type);
 
 		$chunks = array_chunk($filtered_array, 5);
 		//5 college is taken wrt the number of pages
@@ -34,9 +42,20 @@ class HomeController extends CI_Controller {
 		// print_r($main_array);
 		
 		//pagination config
-		$count['pages'] = count($filtered_array)/5;
+		$count['pages'] = count($chunks);
 		$count['present_page'] = $param;
 		// print_r($this->session->get_userdata('search'));
+		//count in order to display in search results
+		$search['count'] = count($filtered_array);
+
+
+		//getting sort type from session data
+		$search['sort'] = ($this->session->userdata('sort'));
+		$search['sort_type'] = ($this->session->userdata('sort_type'));
+
+		
+		
+
 		$city_filters = $this->session->userdata('city_filters')? $this->session->userdata('city_filters') : array();
 		$type_filters = $this->session->userdata('type_filters') ? $this->session->userdata('type_filters') : array();
 		$mode_filters = $this->session->userdata('mode_filters') ? $this->session->userdata('mode_filters') : array();
@@ -46,8 +65,8 @@ class HomeController extends CI_Controller {
 		$data['filters'] = $merged_array;
 		$this->load->view('downloadform');
 		$this->load->view('header');
-		$this->load->view('search');
-		$this->load->view('hero',$data);
+		$this->load->view('search',$search);
+		$this->load->view('hero',$data);	
 		$this->load->view('pagination',$count);
 	}
 }

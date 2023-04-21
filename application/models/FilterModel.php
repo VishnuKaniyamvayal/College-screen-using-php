@@ -88,7 +88,8 @@ Class FilterModel extends CI_Model
 
         $filtered_colleges = array_filter($array, function($college) use ($search_key) {
         foreach($college as $field) {
-            if (stripos($field, $search_key) !== false) {
+            if (stripos($field, $search_key) !== false) 
+            {
                 return true;
             }
         }
@@ -97,6 +98,27 @@ Class FilterModel extends CI_Model
 
     return ($filtered_colleges);
     }
-    
+    public function sort($array, $sort , $sort_type) {
+
+        if($sort_type == "ascending")
+        {
+        usort($array, function($a, $b) use ($sort) {
+            if ($a[$sort] == $b[$sort]) {
+                return 0;
+            }
+            return ($a[$sort] < $b[$sort]) ? -1 : 1;
+        });
+        }
+        else
+        {
+            usort($array, function($a, $b) use ($sort) {
+                if ($a[$sort] == $b[$sort]) {
+                    return 0;
+                }
+                return ($a[$sort] < $b[$sort])? 1 : -1;
+            });
+        }
+        return $array;
+    }
 
 }

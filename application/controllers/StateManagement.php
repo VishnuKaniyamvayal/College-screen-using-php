@@ -53,6 +53,18 @@ class StateManagement extends CI_Controller {
         $this->session->set_userdata('search', '');
         echo 'success';
     }
+    public function sort()
+    {
+		$sort = $this->input->post('sort');
+        $this->session->set_userdata('sort', $sort);
+        echo 'success';
+    }
+    public function sort_type()
+    {
+		$sort_type = $this->input->post('sort_type');
+        $this->session->set_userdata('sort_type', $sort_type);
+        echo 'success';
+    }
 
 
         
